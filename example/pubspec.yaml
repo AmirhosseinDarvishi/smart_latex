@@ -1,0 +1,13 @@
+name: smart_latex_example
+description: Example app for smart_latex package.
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  smart_latex:
+    path: ../

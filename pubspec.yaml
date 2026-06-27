@@ -1,11 +1,19 @@
 name: smart_latex
 description: >-
-  A Flutter widget that renders LaTeX and Markdown from AI models correctly.
-  Sanitizes common AI mistakes (double backslashes, Persian digits, unbalanced
-  braces, \text{} around digits) and prevents flutter_math_fork layout crashes
-  by isolating KaTeX metrics from the surrounding Persian/RTL text style.
+  Robust LaTeX rendering for Flutter. Renders mixed text and math, repairs
+  malformed input (double backslashes, Persian/Arabic digits, unbalanced
+  braces, single-char \text{}), and isolates KaTeX metrics from custom fonts
+  and RTL layouts to avoid flutter_math_fork layout crashes.
 version: 1.0.0
 homepage: https://github.com/AmirhosseinDarvishi/smart_latex
+repository: https://github.com/AmirhosseinDarvishi/smart_latex
+issue_tracker: https://github.com/AmirhosseinDarvishi/smart_latex/issues
+topics:
+  - latex
+  - math
+  - katex
+  - rtl
+  - rendering
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
