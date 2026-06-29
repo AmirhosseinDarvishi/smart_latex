@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_math_fork/flutter_math.dart';
 
+import 'math/flutter_math.dart';
 import 'sanitizer.dart';
 
 /// Builds the fallback widget shown when a LaTeX segment fails to render.
@@ -61,11 +61,26 @@ class SmartLatexText extends StatelessWidget {
   /// Base text style. Merges over `DefaultTextStyle`.
   final TextStyle? style;
 
+  /// How the plain-text runs are horizontally aligned. Defaults to
+  /// [TextAlign.start].
   final TextAlign textAlign;
+
+  /// Direction of the surrounding text. Math segments are always laid out
+  /// left-to-right regardless of this value. Defaults to [TextDirection.ltr].
   final TextDirection textDirection;
+
+  /// Whether the text should break at soft line breaks. Defaults to `true`.
   final bool softWrap;
+
+  /// Optional cap on the number of lines for the inline text runs.
   final int? maxLines;
+
+  /// How visual overflow of the inline text is handled. Defaults to
+  /// [TextOverflow.clip].
   final TextOverflow overflow;
+
+  /// Scale factor applied to both the text and the math. Defaults to the
+  /// ambient [MediaQuery] text scaler.
   final TextScaler? textScaler;
 
   /// Hide an unclosed trailing math delimiter instead of showing it as raw

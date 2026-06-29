@@ -1,10 +1,10 @@
 name: smart_latex
 description: >-
-  Robust LaTeX rendering for Flutter. Renders mixed text and math, repairs
-  malformed input (double backslashes, Persian/Arabic digits, unbalanced
-  braces, single-char \text{}), and isolates KaTeX metrics from custom fonts
-  and RTL layouts to avoid flutter_math_fork layout crashes.
-version: 1.0.0
+  Self-contained LaTeX rendering for Flutter. Renders mixed text and math with
+  a bundled, layout-fixed KaTeX engine — no extra math package required. Repairs
+  malformed input (double backslashes, Persian/Arabic digits, unbalanced braces,
+  single-char \text{}) and works cleanly inside custom-font and RTL layouts.
+version: 2.0.0
 homepage: https://github.com/AmirhosseinDarvishi/smart_latex
 repository: https://github.com/AmirhosseinDarvishi/smart_latex
 issue_tracker: https://github.com/AmirhosseinDarvishi/smart_latex/issues
@@ -19,10 +19,16 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
   flutter: ">=3.10.0"
 
+# These are the runtime dependencies of the bundled math engine (a vendored,
+# layout-fixed copy of flutter_math_fork, Apache-2.0).
 dependencies:
   flutter:
     sdk: flutter
-  flutter_math_fork: ">=0.7.4 <2.0.0"
+  flutter_svg: ">=2.0.0 <3.0.0"
+  provider: ^6.0.5
+  meta: ^1.8.0
+  collection: ^1.17.0
+  tuple: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -31,3 +37,59 @@ dev_dependencies:
 
 flutter:
   uses-material-design: false
+  fonts:
+    - family: KaTeX_Main
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Main-Regular.ttf
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Main-Italic.ttf
+          style: italic
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Main-Bold.ttf
+          weight: 700
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Main-BoldItalic.ttf
+          weight: 700
+          style: italic
+    - family: KaTeX_Math
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Math-Italic.ttf
+          style: italic
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Math-BoldItalic.ttf
+          weight: 700
+          style: italic
+    - family: KaTeX_AMS
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_AMS-Regular.ttf
+    - family: KaTeX_Caligraphic
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Caligraphic-Regular.ttf
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Caligraphic-Bold.ttf
+          weight: 700
+    - family: KaTeX_Fraktur
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Fraktur-Regular.ttf
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Fraktur-Bold.ttf
+          weight: 700
+    - family: KaTeX_SansSerif
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_SansSerif-Regular.ttf
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_SansSerif-Bold.ttf
+          weight: 700
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_SansSerif-Italic.ttf
+          style: italic
+    - family: KaTeX_Script
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Script-Regular.ttf
+    - family: KaTeX_Typewriter
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Typewriter-Regular.ttf
+    - family: KaTeX_Size1
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Size1-Regular.ttf
+    - family: KaTeX_Size2
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Size2-Regular.ttf
+    - family: KaTeX_Size3
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Size3-Regular.ttf
+    - family: KaTeX_Size4
+      fonts:
+        - asset: lib/src/math/katex_fonts/fonts/KaTeX_Size4-Regular.ttf

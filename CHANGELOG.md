@@ -1,4 +1,17 @@
-## 1.0.0
+## 2.0.0 - 2026-06-28
+
+### Breaking / major
+- **Self-contained now.** The math engine (a layout-fixed copy of
+  flutter_math_fork, Apache-2.0) is bundled inside the package. You no longer
+  need to add `flutter_math_fork` yourself or apply any `dependency_overrides`
+  — `flutter pub add smart_latex` is all that's required.
+- The bundled engine fixes the upstream
+  `RenderResetDimension does not meet its constraints` layout crash that
+  affected `\sqrt` nested in `\frac` with `\left(...\right)` delimiters.
+
+See `PATCHES.md` for the exact changes made to the bundled engine.
+
+## 1.0.0 - 2026-06-27
 
 Initial release.
 
@@ -18,9 +31,3 @@ Initial release.
   - Single-character `\text{0}` wrappers → bare characters.
   - Unbalanced curly braces.
 - `LatexSanitizeOptions` lets you enable/disable each rule individually.
-
-### Stability
-- Only `fontSize` and `color` are forwarded to the math renderer; font family
-  and line height are dropped so KaTeX metrics stay consistent and the
-  `flutter_math_fork` layout assertions don't fire inside custom-font / RTL
-  layouts.

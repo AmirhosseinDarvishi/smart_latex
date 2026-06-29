@@ -56,12 +56,6 @@
       "languageVersion": "3.1"
     },
     {
-      "name": "flutter_math_fork",
-      "rootUri": "file:///Users/amirhosseindarvishi/.pub-cache/hosted/pub.dev/flutter_math_fork-0.7.4",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "flutter_svg",
       "rootUri": "file:///Users/amirhosseindarvishi/.pub-cache/hosted/pub.dev/flutter_svg-2.3.0",
       "packageUri": "lib/",

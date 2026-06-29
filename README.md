@@ -21,8 +21,17 @@ Robust LaTeX rendering for Flutter. Renders mixed text and math, repairs malform
 
 ```yaml
 dependencies:
-  smart_latex: ^1.0.0
+  smart_latex: ^2.0.0
 ```
+
+Or simply run:
+
+```sh
+flutter pub add smart_latex
+```
+
+No `dependency_overrides` and no separate math package are required — the
+layout-fixed rendering engine is bundled.
 
 ## Usage
 
@@ -83,12 +92,11 @@ sanitizeLatex(
 
 ### Using with gpt_markdown
 
-`smart_latex` pairs well with full Markdown renderers. Provide a `latexBuilder`
-that forwards only `fontSize`/`color` to the math renderer and sanitize the
-input first:
+`smart_latex` pairs well with full Markdown renderers. Hand each LaTeX segment
+to `SmartMath`, which sanitizes the input and forwards only `fontSize`/`color`
+to the bundled engine — no `flutter_math_fork` import needed:
 
 ```dart
-import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
 import 'package:smart_latex/smart_latex.dart';
 
@@ -96,24 +104,32 @@ GptMarkdown(
   source,
   useDollarSignsForLatex: true,
   latexWorkaround: sanitizeLatex,
-  latexBuilder: (ctx, tex, style, inline) => Math.tex(
-    sanitizeLatex(tex),
-    mathStyle: inline ? MathStyle.text : MathStyle.display,
-    textStyle: TextStyle(fontSize: style.fontSize, color: style.color),
-    onErrorFallback: (_) => Text(tex, style: style),
+  latexBuilder: (ctx, tex, style, inline) => SmartMath(
+    tex,
+    display: !inline,
+    style: style,
   ),
 )
 ```
 
-## Note on `flutter_math_fork`
+## Why a bundled engine?
 
-`flutter_math_fork` can throw a layout assertion
+Upstream `flutter_math_fork` can throw a layout assertion
 (`RenderResetDimension does not meet its constraints`) for some complex
-formulas. `smart_latex` minimises this by never forwarding the font family or
-line height to the renderer. If you still hit it with a specific expression,
-the root cause is in `flutter_math_fork`'s layout code constraining child
-sizes; see its issue tracker.
+formulas — most visibly `\sqrt` nested inside `\frac` with `\left(...\right)`
+delimiters. The root cause is in its layout code, which sets sizes without
+clamping them to the incoming constraints, so it could not be worked around
+from the outside.
+
+`smart_latex` ships a vendored, layout-fixed copy of that engine inside the
+package, so this crash is resolved out of the box. See
+[`PATCHES.md`](PATCHES.md) for the exact changes.
 
 ## License
 
-MIT
+`smart_latex` itself is released under the [MIT License](LICENSE).
+
+It bundles a modified copy of
+[`flutter_math_fork`](https://pub.dev/packages/flutter_math_fork), which is
+licensed under Apache-2.0. Its license is retained at
+[`LICENSE-flutter_math_fork`](LICENSE-flutter_math_fork) as required.

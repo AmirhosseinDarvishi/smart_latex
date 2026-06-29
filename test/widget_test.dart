@@ -12,7 +12,7 @@ void main() {
 
   testWidgets('renders mixed text and inline math', (tester) async {
     await tester.pumpWidget(
-      _wrap(SmartLatexText(r'value $x^2$ here')),
+      _wrap(const SmartLatexText(r'value $x^2$ here')),
     );
     // The surrounding text is present as a rich-text run.
     expect(find.byType(SmartLatexText), findsOneWidget);
@@ -41,7 +41,7 @@ void main() {
 
   testWidgets('malformed formula renders without exception', (tester) async {
     await tester.pumpWidget(
-      _wrap(SmartLatexText(
+      _wrap(const SmartLatexText(
         r'$\frac{{\text{0}\text{٫}\text{5}}}{{\left(\text{1}\\right)}}$',
         textDirection: TextDirection.rtl,
       )),

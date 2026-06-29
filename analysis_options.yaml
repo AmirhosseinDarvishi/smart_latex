@@ -1,0 +1,8 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    # Vendored, layout-fixed copy of flutter_math_fork (Apache-2.0).
+    # Excluded from analysis/lints; maintained upstream, not hand-edited except
+    # for the documented layout patch.
+    - lib/src/math/**

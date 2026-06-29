@@ -22,9 +22,14 @@ class LatexSanitizeOptions {
 
   /// Convert `\\command` (double backslash) into `\command`.
   ///
-  /// A double backslash followed by letters is a malformed command — in real
-  /// LaTeX `\\` is a line break and cannot be followed directly by a command
-  /// name. This breaks pairs such as `\left( ... \\right)`.
+  /// A double backslash followed immediately by letters is almost always a
+  /// malformed command: in real LaTeX `\\` is a line break and a genuine break
+  /// is followed by whitespace, `&`, or the next row — not directly by a
+  /// command name. This rule repairs pairs such as `\left( ... \\right)`.
+  ///
+  /// Limitation: if you render multi-row environments written *tightly*, such
+  /// as `\begin{matrix}a\\b\end{matrix}` (no space after `\\`), the `\\b` row
+  /// break would be collapsed. Disable this rule for such content.
   final bool fixDoubleBackslashCommands;
 
   /// Fix well-known command typos such as `\sqt` → `\sqrt`.
