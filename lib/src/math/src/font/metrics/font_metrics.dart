@@ -193,7 +193,7 @@ class CharacterMetrics {
   );
 }
 
-final Map<String, Map<int, CharacterMetrics>> metricsMap = fontMetricsData;
+const Map<String, Map<int, CharacterMetrics>> metricsMap = fontMetricsData;
 
 CharacterMetrics? getCharacterMetrics(
     {required String character, required String fontName, required Mode mode}) {
@@ -241,7 +241,5 @@ FontMetrics getGlobalMetrics(MathSize size) {
     case MathSize.huge:
     case MathSize.HUGE:
       return textFontMetrics;
-    default:
-      throw ArgumentError(size);
   }
 }

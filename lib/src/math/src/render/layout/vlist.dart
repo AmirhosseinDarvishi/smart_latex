@@ -27,12 +27,12 @@ class VListElement extends ParentDataWidget<VListParentData> {
   final double hShift;
 
   const VListElement({
-    Key? key,
+    super.key,
     this.customCrossSize,
     this.trailingMargin = 0.0,
     this.hShift = 0.0,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   @override
   void applyParentData(RenderObject renderObject) {
@@ -106,15 +106,15 @@ class VListElement extends ParentDataWidget<VListParentData> {
 /// In implementation it is a two-pass layout process and even more efficient
 /// than Flutter's Column.
 class VList extends MultiChildRenderObjectWidget {
-  VList({
-    Key? key,
+  const VList({
+    super.key,
     this.textBaseline = TextBaseline.alphabetic,
     this.baselineReferenceWidgetIndex = 0,
     // this.baselineOffset = 0,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.textDirection,
-    List<Widget> children = const [],
-  }) : super(key: key, children: children);
+    super.children,
+  });
   final TextBaseline textBaseline;
   final int baselineReferenceWidgetIndex;
   // final double baselineOffset;
@@ -335,7 +335,6 @@ class RenderRelativeWidthColumn extends RenderBox
       case CrossAxisAlignment.start:
       case CrossAxisAlignment.baseline:
       case CrossAxisAlignment.stretch: // TODO
-      default:
         return width;
     }
   }

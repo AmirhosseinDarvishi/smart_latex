@@ -144,7 +144,7 @@ class SyntaxNode {
           ? SyntaxNode(
               parent: this,
               value: value.children[index]!,
-              pos: this.pos + value.childPositions[index],
+              pos: pos + value.childPositions[index],
             )
           : null,
       growable: false);
@@ -549,11 +549,11 @@ class EquationRowNode extends ParentableNode<GreenNode>
     final lineChildren = List.generate(
       flattenedBuildResults.length,
       (index) => LineElement(
-        child: flattenedBuildResults[index].widget,
         canBreakBefore: false, // TODO
         alignerOrSpacer: flattenedChildList[index] is SpaceNode &&
             (flattenedChildList[index] as SpaceNode).alignerOrSpacer,
         trailingMargin: childSpacingConfs[index].spacingAfter,
+        child: flattenedBuildResults[index].widget,
       ),
       growable: false,
     );
@@ -583,8 +583,8 @@ class EquationRowNode extends ParentableNode<GreenNode>
         child: Selector2<TextSelection, Tuple2<LayerLink, LayerLink>,
             Tuple3<TextSelection, LayerLink?, LayerLink?>>(
           selector: (context, selection, handleLayerLinks) {
-            final start = selection.start - this.pos;
-            final end = selection.end - this.pos;
+            final start = selection.start - pos;
+            final end = selection.end - pos;
 
             final caretStart = caretPositions.slotFor(start).ceil();
             final caretEnd = caretPositions.slotFor(end).floor();
@@ -611,7 +611,6 @@ class EquationRowNode extends ParentableNode<GreenNode>
             final value = Provider.of<SelectionStyle>(context);
             return EditableLine(
               key: _key,
-              children: lineChildren,
               devicePixelRatio: MediaQuery.of(context).devicePixelRatio,
               node: this,
               preferredLineHeight: options.fontSize,
@@ -629,6 +628,7 @@ class EquationRowNode extends ParentableNode<GreenNode>
               paintCursorAboveText: value.paintCursorAboveText,
               selectionColor: value.selectionColor,
               showCursor: value.showCursor,
+              children: lineChildren,
             );
           },
         ),
@@ -663,6 +663,7 @@ class EquationRowNode extends ParentableNode<GreenNode>
   @override
   AtomType get rightType => overrideType ?? AtomType.ord;
 
+  @override
   Map<String, Object?> toJson() => super.toJson()
     ..addAll({
       'children': children.map((child) => child.toJson()).toList(),
@@ -714,7 +715,7 @@ mixin _ClipChildrenMixin on ParentableNode<GreenNode> {
         tail = child;
       }
     }
-    return this.updateChildren(<GreenNode>[
+    return updateChildren(<GreenNode>[
       if (head != null) head,
       for (var i = childIndex1Ceil; i < childIndex2Floor; i++) children[i],
       if (tail != null) tail,
@@ -747,7 +748,7 @@ extension GreenNodeWrappingExt on GreenNode {
   /// If the [EquationRowNode] has more than one child, an error will be thrown.
   GreenNode unwrapEquationRow() {
     if (this is EquationRowNode) {
-      if (this.children.length == 1) {
+      if (children.length == 1) {
         return (this as EquationRowNode).children[0];
       }
       throw ArgumentError(
@@ -763,7 +764,7 @@ extension GreenNodeListWrappingExt on List<GreenNode> {
   /// If the list only contain one [EquationRowNode], then this note will be
   /// returned.
   EquationRowNode wrapWithEquationRow() {
-    if (this.length == 1 && this[0] is EquationRowNode) {
+    if (length == 1 && this[0] is EquationRowNode) {
       return this[0] as EquationRowNode;
     }
     return EquationRowNode(children: this);
@@ -813,7 +814,6 @@ enum AtomType {
   inner,
 
   spacing, // symbols
-
 }
 
 /// Only for improvisional use during parsing. Do not use.

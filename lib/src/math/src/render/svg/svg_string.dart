@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -50,7 +52,7 @@ Widget svgWidgetFromPath(
 
   final svgString = svgStringFromPath(path, viewPort, viewBox, color,
       preserveAspectRatio: preserveAspectRatio);
-  return Container(
+  return SizedBox(
     height: viewPort.height,
     width: viewPort.width,
     child: SvgPicture.string(

@@ -176,7 +176,7 @@ Widget buildCustomSizedDelimWidget(
     return ShiftBaseline(
       relativePos: 0.5,
       offset: axisHeight,
-      child: Container(
+      child: SizedBox(
         height: minDelimiterHeight,
         width: nullDelimiterSpace.toLpUnder(options),
       ),

@@ -7,17 +7,14 @@ class LayoutBuilderPreserveBaseline
   ///
   /// The [builder] argument must not be null.
   const LayoutBuilderPreserveBaseline({
-    Key? key,
-    required LayoutWidgetBuilder builder,
-  }) : super(key: key, builder: builder);
+    super.key,
+    required super.builder,
+  });
 
   @override
-  LayoutWidgetBuilder get builder => super.builder;
-
-  @override
-  _RenderLayoutBuilderPreserveBaseline createRenderObject(
-          BuildContext context) =>
-      _RenderLayoutBuilderPreserveBaseline();
+  RenderAbstractLayoutBuilderMixin<BoxConstraints, RenderBox>
+      createRenderObject(BuildContext context) =>
+          _RenderLayoutBuilderPreserveBaseline();
 }
 
 class _RenderLayoutBuilderPreserveBaseline extends RenderBox

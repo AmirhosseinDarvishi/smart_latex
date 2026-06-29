@@ -22,6 +22,7 @@
 // SOFTWARE.
 
 /// Converted from KaTeX/src/katex.less
+library;
 
 import 'dart:ui';
 

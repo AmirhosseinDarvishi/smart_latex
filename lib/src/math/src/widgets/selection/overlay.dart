@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -266,9 +268,8 @@ class MathSelectionOverlay {
 
     final editingRegion = manager.getLocalEditingRegion();
 
-    final isMultiline = false; // TODO
-    // endpoints.last.point.dy - endpoints.first.point.dy >
-    // manager.preferredLineHeight / 2;
+    final isMultiline =
+        (endpoint2.dy - endpoint1.dy).abs() > manager.preferredLineHeight / 2;
 
     // If the selected text spans more than 1 line, horizontally center the
     // toolbar.

@@ -31,7 +31,7 @@ enum _ScriptPos {
 
 class Multiscripts extends StatelessWidget {
   const Multiscripts({
-    Key? key,
+    super.key,
     this.alignPostscripts = false,
     required this.isBaseCharacterBox,
     required this.baseResult,
@@ -39,7 +39,7 @@ class Multiscripts extends StatelessWidget {
     this.supResult,
     this.presubResult,
     this.presupResult,
-  }) : super(key: key);
+  });
 
   final bool alignPostscripts;
   final bool isBaseCharacterBox;
@@ -52,7 +52,7 @@ class Multiscripts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CustomLayout(
-        delegate: MultiscriptsLayoutDelegate(
+        delegate: _MultiscriptsLayoutDelegate(
           alignPostscripts: alignPostscripts,
           italic: baseResult.italic,
           isBaseCharacterBox: isBaseCharacterBox,
@@ -93,7 +93,7 @@ class Multiscripts extends StatelessWidget {
 
 // Superscript and subscripts are handled in the TeXbook on page
 // 445-446, rules 18(a-f).
-class MultiscriptsLayoutDelegate extends IntrinsicLayoutDelegate<_ScriptPos> {
+class _MultiscriptsLayoutDelegate extends IntrinsicLayoutDelegate<_ScriptPos> {
   final bool alignPostscripts;
   final double italic;
 
@@ -104,7 +104,7 @@ class MultiscriptsLayoutDelegate extends IntrinsicLayoutDelegate<_ScriptPos> {
   final MathOptions? presubOptions;
   final MathOptions? presupOptions;
 
-  MultiscriptsLayoutDelegate({
+  _MultiscriptsLayoutDelegate({
     required this.alignPostscripts,
     required this.italic,
     required this.isBaseCharacterBox,
@@ -187,7 +187,7 @@ class MultiscriptsLayoutDelegate extends IntrinsicLayoutDelegate<_ScriptPos> {
     final presubHeight = childrenBaselines[_ScriptPos.presub];
     final presupHeight = childrenBaselines[_ScriptPos.presup];
 
-    final postscriptRes = calculateUV(
+    final postscriptRes = _calculateUV(
       base: _ScriptUvConf(baseSize, baseHeight, baseOptions),
       sub: subSize != null
           ? _ScriptUvConf(subSize, subHeight!, subOptions!)
@@ -198,7 +198,7 @@ class MultiscriptsLayoutDelegate extends IntrinsicLayoutDelegate<_ScriptPos> {
       isBaseCharacterBox: isBaseCharacterBox,
     );
 
-    final prescriptRes = calculateUV(
+    final prescriptRes = _calculateUV(
       base: _ScriptUvConf(baseSize, baseHeight, baseOptions),
       sub: presubSize != null
           ? _ScriptUvConf(presubSize, presubHeight!, presubOptions!)
@@ -258,7 +258,7 @@ class _ScriptUvConf {
   const _ScriptUvConf(this.fullHeight, this.baseline, this.options);
 }
 
-Tuple2<double, double> calculateUV({
+Tuple2<double, double> _calculateUV({
   required _ScriptUvConf base,
   _ScriptUvConf? sub,
   _ScriptUvConf? sup,

@@ -10,8 +10,8 @@ import '../../utils/num_extension.dart';
 import 'line.dart';
 
 class EditableLine extends MultiChildRenderObjectWidget {
-  EditableLine({
-    Key? key,
+  const EditableLine({
+    super.key,
     this.crossAxisAlignment = CrossAxisAlignment.baseline,
     this.cursorBlinkOpacityController,
     required this.cursorColor,
@@ -34,8 +34,8 @@ class EditableLine extends MultiChildRenderObjectWidget {
     this.endHandleLayerLink,
     this.textBaseline = TextBaseline.alphabetic,
     this.textDirection,
-    List<Widget> children = const [],
-  }) : super(key: key, children: children);
+    super.children,
+  });
 
   final CrossAxisAlignment crossAxisAlignment;
 
@@ -153,8 +153,8 @@ class EditableLine extends MultiChildRenderObjectWidget {
 
 class RenderEditableLine extends RenderLine {
   RenderEditableLine({
-    List<RenderBox>? children,
-    CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.baseline,
+    super.children,
+    super.crossAxisAlignment,
     AnimationController? cursorBlinkOpacityController,
     required Color cursorColor,
     Offset? cursorOffset,
@@ -163,8 +163,8 @@ class RenderEditableLine extends RenderLine {
     double? cursorHeight,
     double devicePixelRatio = 1.0,
     Color? hintingColor,
-    double minDepth = 0,
-    double minHeight = 0,
+    super.minDepth,
+    super.minHeight,
     required this.node,
     bool paintCursorAboveText = false,
     required this.preferredLineHeight,
@@ -173,8 +173,8 @@ class RenderEditableLine extends RenderLine {
     bool showCursor = false,
     LayerLink? startHandleLayerLink,
     LayerLink? endHandleLayerLink,
-    TextBaseline textBaseline = TextBaseline.alphabetic,
-    TextDirection? textDirection = TextDirection.ltr,
+    super.textBaseline,
+    super.textDirection,
   })  :
         // assert(!showCursor || cursorColor != null),
         _cursorBlinkOpacityController = cursorBlinkOpacityController,
@@ -190,15 +190,7 @@ class RenderEditableLine extends RenderLine {
         _selectionColor = selectionColor,
         _showCursor = showCursor,
         _startHandleLayerLink = startHandleLayerLink,
-        _endHandleLayerLink = endHandleLayerLink,
-        super(
-          children: children,
-          crossAxisAlignment: crossAxisAlignment,
-          minDepth: minDepth,
-          minHeight: minHeight,
-          textBaseline: textBaseline,
-          textDirection: textDirection,
-        );
+        _endHandleLayerLink = endHandleLayerLink;
 
   AnimationController? get cursorBlinkOpacityController =>
       _cursorBlinkOpacityController;
@@ -297,6 +289,7 @@ class RenderEditableLine extends RenderLine {
   EquationRowNode node;
 
   /// {@template flutter.rendering.editable.paintCursorOnTop}
+  /// {@endtemplate}
   bool get paintCursorAboveText => _paintCursorAboveText;
   bool _paintCursorAboveText;
   set paintCursorAboveText(bool value) {
@@ -461,15 +454,15 @@ class RenderEditableLine extends RenderLine {
 
   void _paintCaret(Canvas canvas, Offset baselineOffset) {
     final paint = Paint()
-      ..color =
-          _cursorColor.withOpacity(_cursorBlinkOpacityController?.value ?? 0);
+      ..color = _cursorColor.withValues(
+          alpha: _cursorBlinkOpacityController?.value ?? 0);
 
-    Rect _caretPrototype;
+    Rect caretPrototype;
 
     switch (defaultTargetPlatform) {
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
-        _caretPrototype = Rect.fromLTWH(
+        caretPrototype = Rect.fromLTWH(
           0.0,
           0.0,
           _cursorWidth,
@@ -480,7 +473,7 @@ class RenderEditableLine extends RenderLine {
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
-        _caretPrototype = Rect.fromLTWH(
+        caretPrototype = Rect.fromLTWH(
           0.0,
           0.0, // _kCaretHeightOffset,
           _cursorWidth,
@@ -489,7 +482,7 @@ class RenderEditableLine extends RenderLine {
         break;
     }
 
-    var caretRect = _caretPrototype
+    var caretRect = caretPrototype
         .shift(baselineOffset)
         .shift(Offset(0, -0.9 * cursorHeight)); // 0.9 is eyeballed
 

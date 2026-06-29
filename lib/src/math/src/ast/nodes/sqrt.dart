@@ -45,7 +45,7 @@ class SqrtNode extends SlotableNode {
     return BuildResult(
       options: options,
       widget: CustomLayout<_SqrtPos>(
-        delegate: SqrtLayoutDelegate(
+        delegate: _SqrtLayoutDelegate(
           options: options,
           baseOptions: baseResult.options,
           // indexOptions: indexResult?.options,
@@ -133,12 +133,12 @@ enum _SqrtPos {
 }
 
 // Square roots are handled in the TeXbook pg. 443, Rule 11.
-class SqrtLayoutDelegate extends CustomLayoutDelegate<_SqrtPos> {
+class _SqrtLayoutDelegate extends CustomLayoutDelegate<_SqrtPos> {
   final MathOptions options;
   final MathOptions baseOptions;
   // final MathOptions indexOptions;
 
-  SqrtLayoutDelegate({
+  _SqrtLayoutDelegate({
     required this.options,
     required this.baseOptions,
     // required this.indexOptions,
@@ -314,7 +314,7 @@ Widget sqrtSvg({
         minDelimiterHeight,
   );
 
-  final extraViniculum = 0.0; //math.max(0.0, options)
+  const extraViniculum = 0.0; //math.max(0.0, options)
   // final ruleWidth =
   //     options.fontMetrics.sqrtRuleThickness.cssEm.toLpUnder(options);
   // TODO: support Settings.minRuleThickness.
@@ -337,7 +337,7 @@ Widget sqrtSvg({
       // corresponding Mathstyle.
       final advanceWidth = 0.833.cssEm.toLpUnder(delimOptions);
       final viewPortWidth = advanceWidth + baseWidth;
-      final viewBoxHeight = 1000 + 1000 * extraViniculum + vbPad;
+      const viewBoxHeight = 1000 + 1000 * extraViniculum + vbPad;
       final viewBoxWidth = viewPortWidth.lp.toCssEmUnder(delimOptions) * 1000;
       final svgPath = sqrtPath('sqrtMain', extraViniculum, viewBoxHeight);
       return ResetBaseline(

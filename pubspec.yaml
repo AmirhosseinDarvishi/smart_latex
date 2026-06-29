@@ -1,10 +1,6 @@
 name: smart_latex
-description: >-
-  Self-contained LaTeX rendering for Flutter. Renders mixed text and math with
-  a bundled, layout-fixed KaTeX engine — no extra math package required. Repairs
-  malformed input (double backslashes, Persian/Arabic digits, unbalanced braces,
-  single-char \text{}) and works cleanly inside custom-font and RTL layouts.
-version: 2.0.0
+description: Self-contained Flutter LaTeX rendering with bundled KaTeX metrics, input repair, RTL-safe layout, and no extra math package.
+version: 2.0.1
 homepage: https://github.com/AmirhosseinDarvishi/smart_latex
 repository: https://github.com/AmirhosseinDarvishi/smart_latex
 issue_tracker: https://github.com/AmirhosseinDarvishi/smart_latex/issues

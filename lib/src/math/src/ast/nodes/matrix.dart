@@ -178,7 +178,7 @@ class MatrixNode extends SlotableNode<EquationRowNode?> {
               .mapIndexed((index, result) => result == null
                   ? null
                   : CustomLayoutId(id: index, child: result.widget))
-              .whereNotNull()
+              .nonNulls
               .toList(growable: false),
         ),
       ),
@@ -229,9 +229,9 @@ class MatrixNode extends SlotableNode<EquationRowNode?> {
         hskipBeforeAndAfter: hskipBeforeAndAfter ?? this.hskipBeforeAndAfter,
         isSmall: isSmall ?? this.isSmall,
         columnAligns: columnAligns ?? this.columnAligns,
-        vLines: columnLines ?? this.vLines,
-        rowSpacings: rowSpacing ?? this.rowSpacings,
-        hLines: rowLines ?? this.hLines,
+        vLines: columnLines ?? vLines,
+        rowSpacings: rowSpacing ?? rowSpacings,
+        hLines: rowLines ?? hLines,
         body: body ?? this.body,
       );
 
@@ -346,7 +346,6 @@ class MatrixLayoutDelegate extends IntrinsicLayoutDelegate<int> {
         case MatrixColumnAlign.right:
           return colPos[col] + colWidths[col] - childWidths[index];
         case MatrixColumnAlign.center:
-        default:
           return colPos[col] + (colWidths[col] - childWidths[index]) / 2;
       }
     }, growable: false);
@@ -461,7 +460,8 @@ class MatrixLayoutDelegate extends IntrinsicLayoutDelegate<int> {
                 paint);
           }
           break;
-        default:
+        case MatrixSeparatorStyle.none:
+          break;
       }
     }
 
@@ -493,7 +493,8 @@ class MatrixLayoutDelegate extends IntrinsicLayoutDelegate<int> {
                 paint);
           }
           break;
-        default:
+        case MatrixSeparatorStyle.none:
+          break;
       }
     }
   }

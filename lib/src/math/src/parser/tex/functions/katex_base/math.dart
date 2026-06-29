@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-part of katex_base;
+part of '../katex_base.dart';
 
 const _mathEntries = {
   ['\\(', '\$']: FunctionSpec(
@@ -47,7 +47,7 @@ GreenNode _mathLeftHandler(TexParser parser, FunctionContext context) {
   parser.switchMode(outerMode);
 
   return StyleNode(
-    optionsDiff: OptionsDiff(style: MathStyle.text),
+    optionsDiff: const OptionsDiff(style: MathStyle.text),
     children: body,
   );
 }

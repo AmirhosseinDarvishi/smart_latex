@@ -35,6 +35,7 @@ class SpaceNode extends LeafNode {
   /// Whether to fill with text color.
   final bool fill;
 
+  @override
   final Mode mode;
 
   final bool alignerOrSpacer;

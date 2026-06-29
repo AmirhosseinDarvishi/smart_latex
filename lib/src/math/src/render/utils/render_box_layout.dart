@@ -1,4 +1,3 @@
-
 import 'package:flutter/rendering.dart';
 
 extension RenderBoxLayout on RenderBox {
@@ -10,10 +9,10 @@ extension RenderBoxLayout on RenderBox {
   Size getLayoutSize(BoxConstraints constraints, {bool dry = true}) {
     final Size boxSize;
     if (dry) {
-      boxSize = this.getDryLayout(constraints);
+      boxSize = getDryLayout(constraints);
     } else {
-      this.layout(constraints, parentUsesSize: true);
-      boxSize = this.size;
+      layout(constraints, parentUsesSize: true);
+      boxSize = size;
     }
     return boxSize;
   }

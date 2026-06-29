@@ -22,11 +22,13 @@ import 'selection_manager.dart';
 ///
 mixin WebSelectionControlsManagerMixin<T extends StatefulWidget>
     on SelectionManagerMixin<T> implements TextInputClient {
+  @override
   FocusNode get focusNode;
   late FocusNode _oldFocusNode;
 
   TextInputConnection? _textInputConnection;
 
+  @override
   bool get hasFocus => focusNode.hasFocus;
 
   late MathController _oldController;
@@ -78,7 +80,7 @@ mixin WebSelectionControlsManagerMixin<T extends StatefulWidget>
     if (!_hasInputConnection) {
       _textInputConnection = TextInput.attach(
         this,
-        TextInputConfiguration(
+        const TextInputConfiguration(
           inputType: TextInputType.multiline,
           readOnly: true,
           autocorrect: false,
@@ -87,12 +89,14 @@ mixin WebSelectionControlsManagerMixin<T extends StatefulWidget>
       );
       _textInputConnection!
         ..show()
-        ..setStyle(
-          fontSize: 10000, // An absurd size to cover all
-          fontWeight: FontWeight.normal,
-          fontFamily: 'KaTeX_Main',
-          textAlign: TextAlign.center,
-          textDirection: TextDirection.ltr,
+        ..updateStyle(
+          const TextInputStyle(
+            fontSize: 10000, // An absurd size to cover all
+            fontWeight: FontWeight.normal,
+            fontFamily: 'KaTeX_Main',
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.ltr,
+          ),
         )
         ..setEditingState(currentTextEditingValue);
       _updateSizeAndTransform();
@@ -110,7 +114,7 @@ mixin WebSelectionControlsManagerMixin<T extends StatefulWidget>
 
   void _updateSizeAndTransform() {
     if (_textInputConnection != null) {
-      final renderBox = this.context.findRenderObject();
+      final renderBox = context.findRenderObject();
       if (renderBox is RenderBox) {
         final size = renderBox.size;
         final transform = renderBox.getTransformTo(null);

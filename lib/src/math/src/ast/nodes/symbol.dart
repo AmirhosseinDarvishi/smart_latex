@@ -32,6 +32,7 @@ class SymbolNode extends LeafNode {
   /// Overriding atom font;
   final FontOptions? overrideFont;
 
+  @override
   final Mode mode;
 
   // bool get noBreak => symbol == '\u00AF';
@@ -70,7 +71,7 @@ class SymbolNode extends LeafNode {
           expanded[0] = '\u0237'; // dotless j, in math and text mode
         }
       }
-      GreenNode res = this.withSymbol(expanded[0]);
+      GreenNode res = withSymbol(expanded[0]);
       for (var ch in expanded.skip(1)) {
         final accent = unicodeAccents[ch];
         if (accent == null) {
@@ -88,7 +89,7 @@ class SymbolNode extends LeafNode {
     } else {
       // TODO: log a warning here.
       return BuildResult(
-        widget: Container(
+        widget: const SizedBox(
           height: 0,
           width: 0,
         ),

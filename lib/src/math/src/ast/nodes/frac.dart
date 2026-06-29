@@ -42,7 +42,7 @@ class FracNode extends SlotableNode<EquationRowNode> {
       BuildResult(
         options: options,
         widget: CustomLayout(
-          delegate: FracLayoutDelegate(
+          delegate: _FracLayoutDelegate(
             barSize: barSize,
             options: options,
           ),
@@ -98,11 +98,11 @@ enum _FracPos {
   denom,
 }
 
-class FracLayoutDelegate extends IntrinsicLayoutDelegate<_FracPos> {
+class _FracLayoutDelegate extends IntrinsicLayoutDelegate<_FracPos> {
   final Measurement? barSize;
   final MathOptions options;
 
-  FracLayoutDelegate({
+  _FracLayoutDelegate({
     required this.barSize,
     required this.options,
   });

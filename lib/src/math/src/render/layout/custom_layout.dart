@@ -47,9 +47,9 @@ class CustomLayoutId<T> extends ParentDataWidget<CustomLayoutParentData<T>> {
   CustomLayoutId({
     Key? key,
     required this.id,
-    required Widget child,
+    required super.child,
   })  : assert(id != null),
-        super(key: key ?? ValueKey<T>(id), child: child);
+        super(key: key ?? ValueKey<T>(id));
 
   final T id;
 
@@ -78,11 +78,11 @@ class CustomLayout<T> extends MultiChildRenderObjectWidget {
   /// Creates a custom multi-child layout.
   ///
   /// The [delegate] argument must not be null.
-  CustomLayout({
-    Key? key,
+  const CustomLayout({
+    super.key,
     required this.delegate,
-    required List<Widget> children,
-  }) : super(key: key, children: children);
+    required super.children,
+  });
 
   /// The delegate that controls the layout of the children.
   final CustomLayoutDelegate<T> delegate;
@@ -199,9 +199,10 @@ class RenderCustomLayout<T> extends RenderBox
 
   @override
   void performLayout() {
-    this.size = constraints.constrain(_computeLayout(constraints, dry: false));
+    size = constraints.constrain(_computeLayout(constraints, dry: false));
   }
 
+  @override
   Size computeDryLayout(BoxConstraints constraints) =>
       _computeLayout(constraints);
 

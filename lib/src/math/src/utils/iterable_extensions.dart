@@ -68,14 +68,13 @@ extension NumIterableExtension<T extends num> on Iterable<T> {
 }
 
 extension ListExtension<T> on List<T> {
-  List<T> extendToByFill(int desiredLength, T fill) =>
-      this.length >= desiredLength
-          ? this
-          : List.generate(
-              desiredLength,
-              (index) => index < this.length ? this[index] : fill,
-              growable: false,
-            );
+  List<T> extendToByFill(int desiredLength, T fill) => length >= desiredLength
+      ? this
+      : List.generate(
+          desiredLength,
+          (index) => index < length ? this[index] : fill,
+          growable: false,
+        );
 }
 
 extension NumListSearchExt<T extends num> on List<T> {
@@ -90,8 +89,8 @@ extension NumListSearchExt<T extends num> on List<T> {
   double slotFor(T value) {
     // if (value < this[0]) return -1;
     var left = -1;
-    var right = this.length;
-    for (var i = 0; i < this.length; i++) {
+    var right = length;
+    for (var i = 0; i < length; i++) {
       final element = this[i];
       if (element < value) {
         left = i;

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +38,7 @@ class Math extends StatelessWidget {
   ///
   /// See [Math] for its member documentation
   const Math({
-    Key? key,
+    super.key,
     this.ast,
     this.mathStyle = MathStyle.display,
     this.logicalPpi,
@@ -45,8 +47,7 @@ class Math extends StatelessWidget {
     this.parseError,
     this.textScaleFactor,
     this.textStyle,
-  })  : assert(ast != null || parseError != null),
-        super(key: key);
+  }) : assert(ast != null || parseError != null);
 
   /// The equation to display.
   ///
@@ -187,7 +188,8 @@ class Math extends StatelessWidget {
       options = MathOptions(
         style: mathStyle,
         fontSize: effectiveTextStyle.fontSize! * textScaleFactor,
-        mathFontOptions: effectiveTextStyle.fontWeight != FontWeight.normal && effectiveTextStyle.fontWeight != null
+        mathFontOptions: effectiveTextStyle.fontWeight != FontWeight.normal &&
+                effectiveTextStyle.fontWeight != null
             ? FontOptions(fontWeight: effectiveTextStyle.fontWeight!)
             : null,
         logicalPpi: logicalPpi,
@@ -256,13 +258,13 @@ class Math extends StatelessWidget {
       parts: astBreakResult.parts
           .map((part) => Math(
                 ast: part,
-                mathStyle: this.mathStyle,
-                logicalPpi: this.logicalPpi,
-                onErrorFallback: this.onErrorFallback,
-                options: this.options,
-                parseError: this.parseError,
-                textScaleFactor: this.textScaleFactor,
-                textStyle: this.textStyle,
+                mathStyle: mathStyle,
+                logicalPpi: logicalPpi,
+                onErrorFallback: onErrorFallback,
+                options: options,
+                parseError: parseError,
+                textScaleFactor: textScaleFactor,
+                textStyle: textStyle,
               ))
           .toList(growable: false),
       penalties: astBreakResult.penalties,
