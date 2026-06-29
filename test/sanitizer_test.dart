@@ -47,6 +47,29 @@ void main() {
       expect(sanitizeLatex(r'\frac{1}{2'), r'\frac{1}{2}');
     });
 
+    test('leaves an empty string untouched', () {
+      expect(sanitizeLatex(''), '');
+    });
+
+    test('leaves a well-formed formula untouched', () {
+      const ok = r'\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}';
+      expect(sanitizeLatex(ok), ok);
+    });
+
+    test('does not collapse a spaced \\\\ row break', () {
+      // A genuine row break is followed by whitespace, so it is preserved.
+      const matrix = r'\begin{matrix}a \\ b\end{matrix}';
+      expect(sanitizeLatex(matrix), matrix);
+    });
+
+    test('documents that a tight \\\\letter row break is collapsed', () {
+      // Known limitation: no space after `\\` looks like a malformed command.
+      expect(
+        sanitizeLatex(r'\begin{matrix}a\\b\end{matrix}'),
+        r'\begin{matrix}a\b\end{matrix}',
+      );
+    });
+
     test('handles a full malformed formula', () {
       const input =
           r'\frac{{\text{0}\text{٫}\overline{\text{3}}-\text{0}\text{٫}\text{5}}}'

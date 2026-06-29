@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_math_fork/flutter_math.dart';
 
+import 'math/flutter_math.dart';
 import 'sanitizer.dart';
 
 /// Renders a single LaTeX math expression (no surrounding plain text).
@@ -42,6 +42,8 @@ class SmartMath extends StatelessWidget {
   /// Wrap in a horizontal scroll view so wide expressions don't overflow.
   final bool scrollable;
 
+  /// Scale factor applied to the rendered math. Defaults to the ambient
+  /// [MediaQuery] text scaler.
   final TextScaler? textScaler;
 
   /// Builds the fallback widget when rendering fails. Receives the sanitized
