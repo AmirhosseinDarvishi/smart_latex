@@ -27,7 +27,7 @@ class SpaceNode extends LeafNode {
 
   /// Break penalty for a manual line breaking command.
   ///
-  /// Related TeX command: \nobreak, \allowbreak, \penalty<number>.
+  /// Related TeX command: `\nobreak`, `\allowbreak`, `\penalty<number>`.
   ///
   /// Should be null for normal space commands.
   final int? breakPenalty;

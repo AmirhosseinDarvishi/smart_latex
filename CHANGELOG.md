@@ -1,3 +1,9 @@
+## 2.0.2 - 2026-06-30
+
+### Fixed
+- Documentation and metadata polish for pub.dev analysis (CHANGELOG, doc
+  comment formatting). No functional changes.
+
 ## 2.0.0 - 2026-06-28
 
 ### Breaking / major
